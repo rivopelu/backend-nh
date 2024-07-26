@@ -1,12 +1,13 @@
 package com.lewatihari.exceptions;
 
+import com.lewatihari.enums.ResponseEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class BadRequestException extends RuntimeException {
-    public BadRequestException(String msg) {
-        super(msg);
+    public BadRequestException(ResponseEnum msg) {
+        super(msg.name());
     }
 
 }
