@@ -2,6 +2,7 @@ package com.lewatihari.controllers.impl;
 
 import com.lewatihari.advices.BaseControllerImpl;
 import com.lewatihari.controllers.AuthController;
+import com.lewatihari.models.request.RequestSignIn;
 import com.lewatihari.models.request.RequestSignUp;
 import com.lewatihari.models.response.BaseResponse;
 import com.lewatihari.services.AuthService;
@@ -16,5 +17,10 @@ public class AuthControllerImpl implements AuthController {
     @Override
     public BaseResponse signUp(RequestSignUp req) {
         return ResponseHelper.createBaseResponse(authService.signUp(req));
+    }
+
+    @Override
+    public BaseResponse signInUser(RequestSignIn req) {
+        return ResponseHelper.createBaseResponse(authService.signIn(req));
     }
 }
