@@ -18,7 +18,7 @@ import java.math.BigInteger;
 @JsonSerialize
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-public class ResponseNameId {
+public class ResponseNameId<T> {
     private String name;
-    private BigInteger id;
+    private T id;
 }
