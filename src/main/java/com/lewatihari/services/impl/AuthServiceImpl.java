@@ -81,6 +81,24 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    @Override
+    public ResponseSignIn signInAdmin(RequestSignIn req) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword()));
+        try {
+            if (!authentication.isAuthenticated()) {
+                throw new BadRequestException(ResponseEnum.SIGN_IN_FAILED);
+            }
+
+            var user = accountRepository.findByEmailAndActiveTrue(req.getEmail()).orElseThrow();
+            if (user.getRole() != UserRole.ADMIN) {
+                throw new BadRequestException(ResponseEnum.SIGN_IN_FAILED);
+            }
+            return buildSignIn(user);
+        } catch (Exception e) {
+            throw new SystemErrorException(e.getMessage());
+        }
+    }
+
     private ResponseSignIn buildSignIn(Account account) {
         var jwtToken = jwtService.generateToken(account);
         return ResponseSignIn.builder().accessToken(jwtToken).build();

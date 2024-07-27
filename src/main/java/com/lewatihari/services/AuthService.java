@@ -10,4 +10,6 @@ public interface AuthService {
     ResponseEnum signUp(RequestSignUp req);
 
     ResponseSignIn signIn(RequestSignIn req);
+
+    ResponseSignIn signInAdmin(RequestSignIn req);
 }

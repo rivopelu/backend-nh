@@ -12,6 +12,10 @@ public interface AuthController {
 
     @PostMapping("/auth/v1/sign-up")
     BaseResponse signUp(@RequestBody RequestSignUp req);
+
     @PostMapping("/auth/v1/user/sign-in")
     BaseResponse signInUser(@RequestBody RequestSignIn req);
+
+    @PostMapping("auth/v1/admin/sign-in")
+    BaseResponse signInAdmin(@RequestBody RequestSignIn req);
 }
