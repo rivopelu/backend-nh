@@ -12,7 +12,6 @@ import com.lewatihari.exceptions.SystemErrorException;
 import com.lewatihari.models.response.ResponseNameId;
 import com.lewatihari.services.AreaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;

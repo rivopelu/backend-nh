@@ -5,5 +5,6 @@ public enum ResponseEnum {
     ERROR,
     ACCOUNT_NOT_FOUND,
     EMAIL_ALREADY_EXIST,
-    SIGN_IN_FAILED
+    SIGN_IN_FAILED,
+    CATEGORY_ALREADY_EXIST
 }
