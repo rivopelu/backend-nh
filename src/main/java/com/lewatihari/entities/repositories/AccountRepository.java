@@ -1,4 +1,4 @@
-package com.lewatihari.repositories;
+package com.lewatihari.entities.repositories;
 
 import com.lewatihari.entities.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

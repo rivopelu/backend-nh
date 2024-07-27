@@ -1,7 +1,7 @@
 package com.lewatihari.configs;
 
 
-import com.lewatihari.repositories.AccountRepository;
+import com.lewatihari.entities.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

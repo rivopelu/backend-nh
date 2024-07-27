@@ -3,7 +3,7 @@ package com.lewatihari.services.impl;
 
 import com.lewatihari.entities.Account;
 import com.lewatihari.exceptions.NotFoundException;
-import com.lewatihari.repositories.AccountRepository;
+import com.lewatihari.entities.repositories.AccountRepository;
 import com.lewatihari.services.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

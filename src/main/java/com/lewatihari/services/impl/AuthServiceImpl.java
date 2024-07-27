@@ -9,7 +9,7 @@ import com.lewatihari.exceptions.SystemErrorException;
 import com.lewatihari.models.request.RequestSignIn;
 import com.lewatihari.models.request.RequestSignUp;
 import com.lewatihari.models.response.ResponseSignIn;
-import com.lewatihari.repositories.AccountRepository;
+import com.lewatihari.entities.repositories.AccountRepository;
 import com.lewatihari.services.AccountService;
 import com.lewatihari.services.AuthService;
 import com.lewatihari.services.JwtService;
