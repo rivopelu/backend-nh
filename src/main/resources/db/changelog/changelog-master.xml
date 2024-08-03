@@ -11,5 +11,6 @@
     <include file="classpath:db/changelog/1.1.2_add_table_district.xml"/>
     <include file="classpath:db/changelog/1.1.3_add_table_sub_district.xml"/>
     <include file="classpath:db/changelog/1.1.4_add_table_category.xml"/>
+    <include file="classpath:db/changelog/1.1.5_add_table_facility.xml"/>
 
 </databaseChangeLog>

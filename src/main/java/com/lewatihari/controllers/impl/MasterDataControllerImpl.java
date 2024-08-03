@@ -7,6 +7,7 @@ import com.lewatihari.models.response.BaseResponse;
 import com.lewatihari.services.MasterDataService;
 import com.lewatihari.utils.ResponseHelper;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 
 @BaseControllerImpl
 @RequiredArgsConstructor
@@ -21,5 +22,10 @@ public class MasterDataControllerImpl implements MasterDataController {
     @Override
     public BaseResponse getListCategory() {
         return ResponseHelper.createBaseResponse(masterDataService.getListCategory());
+    }
+
+    @Override
+    public BaseResponse getListFacility() {
+        return ResponseHelper.createBaseResponse(masterDataService.getListFacility());
     }
 }

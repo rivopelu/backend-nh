@@ -17,4 +17,7 @@ public interface MasterDataController {
 
     @GetMapping("/public/master-data/v1/category/list")
     BaseResponse getListCategory();
+
+    @GetMapping("/public/master-data/v1/facility/list")
+    BaseResponse getListFacility();
 }
