@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1.2.0" author="rivopelu (generated)">
+        <createTable tableName="merchant">
+            <!-- START BASE ENTITY -->
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+
+            <column name="active" type="tinyint" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_by" type="varchar(36)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="deleted_date" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="modified_by" type="varchar(36)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="modified_date" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <!-- END BASE ENTITY -->
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="logo" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="main_image" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="province_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="district_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sub_district_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lat" type="double">
+                <constraints nullable="true"/>
+            </column>
+            <column name="lng" type="double">
+                <constraints nullable="true"/>
+            </column>
+            <column name="category_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <renameTable oldTableName="cateogory" newTableName="category"/>
+        <addForeignKeyConstraint baseTableName="merchant"
+                                 baseColumnNames="category_id"
+                                 constraintName="merchant_category_fk"
+                                 referencedTableName="category"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

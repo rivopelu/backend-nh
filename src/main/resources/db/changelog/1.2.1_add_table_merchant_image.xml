@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1.2.1" author="rivopelu (generated)">
+        <createTable tableName="merchant_image">
+            <column name="id" type="varchar(255)">
+                <constraints nullable="false" unique="false" primaryKey="true"/>
+            </column>
+            <column name="url" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="merchants_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="merchant_image"
+                                 baseColumnNames="merchants_id"
+                                 constraintName="merchant_image_fk"
+                                 referencedTableName="merchant"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
