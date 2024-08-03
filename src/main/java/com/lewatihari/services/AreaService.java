@@ -1,5 +1,6 @@
 package com.lewatihari.services;
 
+import com.lewatihari.entities.Merchant;
 import com.lewatihari.models.response.ResponseNameId;
 
 import java.math.BigInteger;
@@ -14,4 +15,7 @@ public interface AreaService {
     List<ResponseNameId> getListDistrictByCityId(BigInteger cityId);
 
     List<ResponseNameId> getListSubDistrictByDistrict(BigInteger districtId);
+    List<ResponseNameId> getAreaMerchant(Merchant merchant);
+
+    String getFullAddressMerchant(Merchant merchant);
 }

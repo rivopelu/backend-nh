@@ -21,4 +21,7 @@ public interface MasterDataService {
     void saveMultipleMerchantImages(List<String> imagesUrl, Merchant merchant);
 
     void saveMerchantFacilities(List<String> facilityId, Merchant merchant);
+
+    List<ResponseMasterData> getMerchantFacilities(Merchant merchant);
+    List<String> getImagesMerchant(Merchant merchant);
 }

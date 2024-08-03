@@ -126,4 +126,37 @@ public class MasterDataServiceImpl implements MasterDataService {
             throw new SystemErrorException(e.getMessage());
         }
     }
+
+    @Override
+    public List<ResponseMasterData> getMerchantFacilities(Merchant merchant) {
+        try {
+            List<ResponseMasterData> responseMasterData = new ArrayList<>();
+            List<MerchantFacilities> merchantFacilities = merchantFacilitiesRepository.findAllByMerchant(merchant);
+            for (MerchantFacilities facilities : merchantFacilities) {
+                ResponseMasterData response = ResponseMasterData.builder()
+                        .slug(facilities.getFacility().getSlug())
+                        .name(facilities.getFacility().getName())
+                        .id(facilities.getFacility().getId())
+                        .build();
+                responseMasterData.add(response);
+            }
+            return responseMasterData;
+        } catch (Exception e) {
+            throw new SystemErrorException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<String> getImagesMerchant(Merchant merchant) {
+        try {
+            List<String> images = new ArrayList<>();
+            List<MerchantImage> merchantImages = merchantImageRepository.findAllByMerchant(merchant);
+            for (MerchantImage image : merchantImages) {
+                images.add(image.getUrl());
+            }
+            return images;
+        } catch (Exception e) {
+            throw new SystemErrorException(e.getMessage());
+        }
+    }
 }

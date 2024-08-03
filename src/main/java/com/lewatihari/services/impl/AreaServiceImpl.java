@@ -1,13 +1,11 @@
 package com.lewatihari.services.impl;
 
-import com.lewatihari.entities.City;
-import com.lewatihari.entities.District;
-import com.lewatihari.entities.Province;
-import com.lewatihari.entities.SubDistrict;
+import com.lewatihari.entities.*;
 import com.lewatihari.entities.repositories.CityRepository;
 import com.lewatihari.entities.repositories.DistrictRepository;
 import com.lewatihari.entities.repositories.ProvinceRepository;
 import com.lewatihari.entities.repositories.SubDistrictRepository;
+import com.lewatihari.exceptions.NotFoundException;
 import com.lewatihari.exceptions.SystemErrorException;
 import com.lewatihari.models.response.ResponseNameId;
 import com.lewatihari.services.AreaService;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -93,6 +92,66 @@ public class AreaServiceImpl implements AreaService {
                 responseNameIds.add(responseNameId);
             }
             return responseNameIds;
+        } catch (Exception e) {
+            throw new SystemErrorException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<ResponseNameId> getAreaMerchant(Merchant merchant) {
+        Optional<Province> province = provinceRepository.findById(merchant.getProvinceId());
+        if (province.isEmpty()) {
+            throw new NotFoundException("Province not found");
+        }
+        Optional<City> city = cityRepository.findById(merchant.getCityId());
+        if (city.isEmpty()) {
+            throw new NotFoundException("City not found");
+        }
+        Optional<District> district = districtRepository.findById(merchant.getDistrictId());
+        if (district.isEmpty()) {
+            throw new NotFoundException("District not found");
+        }
+        Optional<SubDistrict> subDistrict = subDistrictRepository.findById(merchant.getSubDistrictId());
+        if (subDistrict.isEmpty()) {
+            throw new NotFoundException("District not found");
+        }
+        try {
+            List<ResponseNameId> responseNameIds = new ArrayList<>();
+            responseNameIds.add(ResponseNameId.builder().name(province.get().getName()).id(province.get().getId()).build());
+            responseNameIds.add(ResponseNameId.builder().name(city.get().getName()).id(city.get().getId()).build());
+            responseNameIds.add(ResponseNameId.builder().name(district.get().getName()).id(district.get().getId()).build());
+            responseNameIds.add(ResponseNameId.builder().name(subDistrict.get().getName()).id(subDistrict.get().getId()).build());
+            return responseNameIds;
+        } catch (Exception e) {
+            throw new SystemErrorException(e.getMessage());
+        }
+    }
+
+    @Override
+    public String getFullAddressMerchant(Merchant merchant) {
+        try {
+            Optional<Province> province = provinceRepository.findById(merchant.getProvinceId());
+            if (province.isEmpty()) {
+                throw new NotFoundException("Province not found");
+            }
+            Optional<City> city = cityRepository.findById(merchant.getCityId());
+            if (city.isEmpty()) {
+                throw new NotFoundException("City not found");
+            }
+            Optional<District> district = districtRepository.findById(merchant.getDistrictId());
+            if (district.isEmpty()) {
+                throw new NotFoundException("District not found");
+            }
+            Optional<SubDistrict> subDistrict = subDistrictRepository.findById(merchant.getSubDistrictId());
+            if (subDistrict.isEmpty()) {
+                throw new NotFoundException("District not found");
+            }
+            return subDistrict.get().getName() + ", " +
+                    district.get().getName() + ", " +
+                    city.get().getName() + ", " +
+                    province.get().getName();
+        } catch (NotFoundException e) {
+            throw e;
         } catch (Exception e) {
             throw new SystemErrorException(e.getMessage());
         }

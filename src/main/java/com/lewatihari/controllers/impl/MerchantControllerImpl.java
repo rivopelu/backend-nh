@@ -18,4 +18,9 @@ public class MerchantControllerImpl implements MerchantController {
     public BaseResponse createNewMerchantByAdmin(RequestNewMerchant req) {
         return ResponseHelper.createBaseResponse(merchantService.createNewMerchantByAdmin(req));
     }
+
+    @Override
+    public BaseResponse getDetailMerchantBySlug(String slug) {
+        return ResponseHelper.createBaseResponse(merchantService.getDetailMerchantBySlug(slug));
+    }
 }
