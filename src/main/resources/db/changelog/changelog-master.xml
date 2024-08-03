@@ -14,5 +14,6 @@
     <include file="classpath:db/changelog/1.1.5_add_table_facility.xml"/>
     <include file="classpath:db/changelog/1.2.0_add_table_merchant.xml"/>
     <include file="classpath:db/changelog/1.2.1_add_table_merchant_image.xml"/>
+    <include file="classpath:db/changelog/1.2.3_add_table_merchant_facility.xml"/>
 
 </databaseChangeLog>

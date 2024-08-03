@@ -21,7 +21,7 @@ public class Merchant extends BaseEntity {
     @Column(name = "logo")
     private String logo;
     @Column(name = "main_image")
-    private String MainImage;
+    private String mainImage;
     @Column(name = "province_id")
     private BigInteger provinceId;
     @Column(name = "city_id")

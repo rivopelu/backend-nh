@@ -1,5 +1,7 @@
 package com.lewatihari.services;
 
+import com.lewatihari.entities.Category;
+import com.lewatihari.entities.Merchant;
 import com.lewatihari.enums.ResponseEnum;
 import com.lewatihari.models.request.RequestName;
 import com.lewatihari.models.response.ResponseMasterData;
@@ -13,4 +15,10 @@ public interface MasterDataService {
     List<ResponseNameId> getListCategory();
 
     List<ResponseMasterData> getListFacility();
+
+    Category getCategoryById(String categoryId);
+
+    void saveMultipleMerchantImages(List<String> imagesUrl, Merchant merchant);
+
+    void saveMerchantFacilities(List<String> facilityId, Merchant merchant);
 }

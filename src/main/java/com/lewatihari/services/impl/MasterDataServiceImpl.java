@@ -1,9 +1,7 @@
 package com.lewatihari.services.impl;
 
-import com.lewatihari.entities.Category;
-import com.lewatihari.entities.Facility;
-import com.lewatihari.entities.repositories.CategoryRepository;
-import com.lewatihari.entities.repositories.FacilityRepository;
+import com.lewatihari.entities.*;
+import com.lewatihari.entities.repositories.*;
 import com.lewatihari.enums.ResponseEnum;
 import com.lewatihari.exceptions.BadRequestException;
 import com.lewatihari.exceptions.SystemErrorException;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +23,10 @@ import java.util.stream.Collectors;
 public class MasterDataServiceImpl implements MasterDataService {
     private final CategoryRepository categoryRepository;
     private final FacilityRepository facilityRepository;
+    private final MerchantImageRepository merchantImageRepository;
+    private final MerchantFacilitiesRepository merchantFacilitiesRepository;
+    private final MerchantRepository merchantRepository;
+
 
     @Override
     public ResponseEnum createNewCategory(RequestName requestName) {
@@ -65,6 +68,60 @@ public class MasterDataServiceImpl implements MasterDataService {
                 responses.add(responseMasterData);
             }
             return responses;
+        } catch (Exception e) {
+            throw new SystemErrorException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Category getCategoryById(String categoryId) {
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isEmpty()) {
+            throw new BadRequestException(ResponseEnum.CATEGORY_NOT_FOUND);
+        }
+        try {
+            return category.get();
+        } catch (Exception e) {
+            throw new SystemErrorException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveMultipleMerchantImages(List<String> imagesUrl, Merchant merchant) {
+        try {
+            List<MerchantImage> merchantImages = new ArrayList<>();
+            for (String url : imagesUrl) {
+                MerchantImage merchantImage = MerchantImage.builder()
+                        .url(url)
+                        .merchant(merchant)
+                        .build();
+                merchantImages.add(merchantImageRepository.save(merchantImage));
+            }
+            merchantImageRepository.saveAll(merchantImages);
+        } catch (Exception e) {
+            merchantRepository.delete(merchant);
+            throw new SystemErrorException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveMerchantFacilities(List<String> facilityId, Merchant merchant) {
+        List<MerchantFacilities> merchantFacilities = new ArrayList<>();
+        try {
+            for (String id : facilityId) {
+                Optional<Facility> facility = facilityRepository.findById(id);
+                if (facility.isEmpty()) {
+                    merchantRepository.delete(merchant);
+                    throw new BadRequestException(ResponseEnum.FACILITY_NOT_FOUND);
+                }
+                MerchantFacilities merchantFacility = MerchantFacilities.builder()
+                        .facility(facility.get())
+                        .merchant(merchant)
+                        .build();
+                merchantFacilities.add(merchantFacility);
+
+            }
+            merchantFacilitiesRepository.saveAll(merchantFacilities);
         } catch (Exception e) {
             throw new SystemErrorException(e.getMessage());
         }

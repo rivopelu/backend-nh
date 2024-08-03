@@ -1,29 +1,28 @@
 package com.lewatihari.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "merchant_image")
-public class MerchantImage {
+@Table(name = "merchant_facilities")
+public class MerchantFacilities {
     @Id
     private String id;
 
-    @Column(name = "url")
-    private String url;
+    @ManyToOne
+    @JoinColumn(name = "merchant_id")
+    private Merchant merchant;
 
     @ManyToOne
-    @JoinColumn(name = "merchants_id")
-    private Merchant merchant;
+    @JoinColumn(name = "facility_id")
+    private Facility facility;
 
     @PrePersist
     public void prePersist() {
@@ -32,3 +31,4 @@ public class MerchantImage {
         }
     }
 }
+
