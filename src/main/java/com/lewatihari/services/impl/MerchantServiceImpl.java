@@ -3,8 +3,10 @@ package com.lewatihari.services.impl;
 import com.lewatihari.entities.Category;
 import com.lewatihari.entities.Merchant;
 import com.lewatihari.entities.repositories.MerchantRepository;
+import com.lewatihari.enums.MerchantStatusEnum;
 import com.lewatihari.enums.ResponseEnum;
 import com.lewatihari.exceptions.BadRequestException;
+import com.lewatihari.exceptions.NotFoundException;
 import com.lewatihari.exceptions.SystemErrorException;
 import com.lewatihari.models.request.RequestNewMerchant;
 import com.lewatihari.models.response.ResponseDetailMerchant;
@@ -17,6 +19,7 @@ import com.lewatihari.services.MerchantService;
 import com.lewatihari.utils.EntityUtils;
 import com.lewatihari.utils.StringUtils;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,11 +67,16 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public ResponseDetailMerchant getDetailMerchantBySlug(String slug) {
+        Optional<Merchant> merchant = merchantRepository.findBySlugAndActiveTrue(slug);
+        if (merchant.isEmpty()) {
+            throw new BadRequestException(ResponseEnum.MERCHANT_NOT_FOUND);
+        }
+        if (merchant.get().getStatus() != MerchantStatusEnum.PUBLISH) {
+            throw new NotFoundException(ResponseEnum.MERCHANT_NOT_FOUND.name());
+        }
         try {
-            Optional<Merchant> merchant = merchantRepository.findBySlugAndActiveTrue(slug);
-            if (merchant.isEmpty()) {
-                throw new BadRequestException(ResponseEnum.MERCHANT_NOT_FOUND);
-            }
+
+
             return buildDetailMerchant(merchant.get());
         } catch (Exception e) {
             throw new SystemErrorException(e.getMessage());
