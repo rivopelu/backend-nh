@@ -1,6 +1,7 @@
 package com.lewatihari.entities;
 
 
+import com.lewatihari.enums.MerchantStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,6 +35,10 @@ public class Merchant extends BaseEntity {
     private Double lat;
     @Column(name = "lng")
     private Double lng;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private MerchantStatusEnum status;
 
 
     @ManyToOne
