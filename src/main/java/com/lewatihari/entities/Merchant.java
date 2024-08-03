@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigInteger;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
